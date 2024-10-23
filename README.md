@@ -127,9 +127,7 @@ Berikut adalah daftar beberapa perintah Linux yang dikelompokkan berdasarkan fun
    - **`date`**: Menampilkan atau mengatur waktu dan tanggal sistem.
    - **`time`**: Mengukur waktu eksekusi sebuah perintah.
    - **`cron`**: Menjadwalkan tugas yang berulang pada interval tertentu.
-   - **`at`**: Menjadwalk
-
-an tugas untuk dijalankan sekali pada waktu tertentu.
+   - **`at`**: Menjadwalkan tugas untuk dijalankan sekali pada waktu tertentu.
    - **`systemctl`**: Mengelola layanan dan daemon di Linux modern (berbasis systemd).
 
 ### Kesimpulan
