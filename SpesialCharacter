@@ -1,0 +1,85 @@
+Berikut adalah daftar **metacharacter** (karakter khusus) di Linux/Unix, beserta fungsinya, dikelompokkan sesuai kategori penggunaan:
+
+### 1. **Metacharacter Umum**
+   - **`*`** : Menandakan *zero or more* karakter apapun. Digunakan dalam *wildcard* pencocokan file atau direktori.
+     - Contoh: `*.txt` akan mencocokkan semua file dengan ekstensi `.txt`.
+   - **`?`** : Menandakan *one single character*. Mencocokkan file atau direktori dengan tepat satu karakter.
+     - Contoh: `file?.txt` akan mencocokkan file seperti `file1.txt`, `fileA.txt`.
+   - **`[]`** : Digunakan untuk menentukan rentang karakter yang dapat dicocokkan.
+     - Contoh: `file[1-3].txt` mencocokkan `file1.txt`, `file2.txt`, `file3.txt`.
+   - **`!` atau `^`** : Digunakan di dalam *bracket expressions* (seperti `[]`) untuk mengecualikan karakter.
+     - Contoh: `file[!2].txt` mencocokkan semua file selain `file2.txt`.
+   
+### 2. **Redirection dan Pipes**
+   - **`>`** : Mengalihkan *output* ke file (overwrite file jika sudah ada).
+     - Contoh: `echo "hello" > output.txt` menulis "hello" ke `output.txt`.
+   - **`>>`** : Mengalihkan *output* dan menambahkan ke file (append).
+     - Contoh: `echo "world" >> output.txt` menambahkan "world" ke akhir `output.txt`.
+   - **`<`** : Mengalihkan input dari file.
+     - Contoh: `cat < input.txt` akan membaca dari `input.txt`.
+   - **`|`** : Mengalihkan *output* satu perintah menjadi *input* perintah lain (pipeline).
+     - Contoh: `ls | grep "file"` mengarahkan hasil `ls` ke `grep`.
+   - **`&`** : Menjalankan perintah di *background*.
+     - Contoh: `./script.sh &` menjalankan `script.sh` di latar belakang.
+   - **`2>`** : Mengalihkan *error output* (stderr) ke file.
+     - Contoh: `command 2> error.log` akan menyimpan pesan kesalahan di `error.log`.
+
+### 3. **Grouping dan Execution**
+   - **`()`** : Menjalankan perintah dalam *subshell* terpisah.
+     - Contoh: `(cd /dir && ls)` menjalankan perintah di direktori `/dir`.
+   - **`{}`** : Menjalankan beberapa perintah dalam satu baris, tapi dalam shell yang sama.
+     - Contoh: `{ ls; echo "done"; }` menjalankan `ls` dan `echo` dalam satu konteks.
+   - **`;`** : Memisahkan perintah untuk dieksekusi secara berurutan.
+     - Contoh: `cd /dir; ls` akan berpindah ke `/dir` lalu menampilkan isinya.
+   - **`&&`** : Menjalankan perintah berikutnya jika perintah sebelumnya berhasil.
+     - Contoh: `mkdir newdir && cd newdir` hanya akan `cd` jika `mkdir` sukses.
+   - **`||`** : Menjalankan perintah berikutnya jika perintah sebelumnya gagal.
+     - Contoh: `cd /dir || echo "Gagal"` akan menampilkan pesan jika `cd` gagal.
+
+### 4. **Quotes (Pengutipan)**
+   - **`' '`** (Single Quotes) : Mencegah interpretasi metacharacter di dalamnya (literal text).
+     - Contoh: `echo 'Hello $USER'` akan menampilkan `Hello $USER`.
+   - **`" "`** (Double Quotes) : Mencegah sebagian besar interpretasi metacharacter kecuali `$`, ```, dan `\`.
+     - Contoh: `echo "Hello $USER"` akan menampilkan `Hello <nama_user>`.
+   - **`` ` ` `` (Backticks) : Digunakan untuk mengeksekusi perintah dan menggantinya dengan hasil *output*.
+     - Contoh: `` echo `date` `` akan menampilkan tanggal saat ini.
+
+### 5. **Escape Characters**
+   - **`\`** : Digunakan untuk menghilangkan makna khusus dari metacharacter berikutnya (escape character).
+     - Contoh: `echo \$USER` akan menampilkan `$USER` bukan nilai variabelnya.
+   
+### 6. **Logical Operators**
+   - **`!`** : Digunakan untuk menegasikan perintah atau kondisi.
+     - Contoh: `! ls` mengeksekusi `ls` hanya jika sebelumnya gagal.
+   
+### 7. **Special Character untuk Lokasi dan Direktori**
+   - **`~`** : Menunjukkan direktori home dari pengguna saat ini.
+     - Contoh: `cd ~` akan membawa ke direktori home.
+   - **`.`** : Menunjukkan direktori saat ini.
+     - Contoh: `./script.sh` menjalankan `script.sh` di direktori saat ini.
+   - **`..`** : Menunjukkan direktori induk (parent directory).
+     - Contoh: `cd ..` berpindah ke direktori induk.
+   - **`/`** : Menunjukkan root directory atau sebagai pemisah path.
+     - Contoh: `/home/user` menunjukkan direktori `user` di dalam `home`.
+
+### 8. **Tanda Penghubung Proses**
+   - **`$`** : Menunjukkan variabel shell.
+     - Contoh: `$USER` menunjukkan nilai dari variabel `USER`.
+   - **`$?`** : Mengembalikan status *exit* dari perintah sebelumnya.
+     - Contoh: `echo $?` akan menampilkan status *exit* perintah terakhir.
+   - **`$$`** : Menunjukkan PID dari shell yang sedang berjalan.
+     - Contoh: `echo $$` akan menampilkan ID proses shell saat ini.
+   - **`$!`** : Menunjukkan PID dari proses terakhir yang dijalankan di *background*.
+     - Contoh: `./script.sh & echo $!` akan menampilkan PID dari `script.sh`.
+
+### 9. **Regular Expression Metacharacter (Untuk Grep, Sed, Awk, dll.)**
+   - **`.`** : Mencocokkan sembarang satu karakter.
+   - **`^`** : Mencocokkan awal baris.
+   - **`$`** : Mencocokkan akhir baris.
+   - **`\|`** : Menunjukkan *or* (atau) dalam regex.
+     - Contoh: `grep 'foo\|bar' file.txt` mencocokkan baris yang mengandung `foo` atau `bar`.
+   - **`()`** : Grup untuk pengelompokan ekspresi.
+   - **`{}`** : Menentukan jumlah kemunculan karakter.
+     - Contoh: `grep 'a{3}'` mencocokkan tiga huruf `a` berurutan.
+
+Dengan daftar ini, Anda memiliki ringkasan tentang berbagai **metacharacter** dalam Linux beserta fungsinya dalam operasi shell dan perintah reguler.
